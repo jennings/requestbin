@@ -22,12 +22,12 @@ if REDIS_URL is not None:
     REDIS_DB = _url_parts.fragment
     REDIS_PREFIX = "requestbin"
 
+REVERSE_PROXY = os.environ.get('REVERSE_PROXY', None)
 
 REALM = os.environ.get('REALM', 'local')
 
 if REALM == 'prod':
     DEBUG = False
-    ROOT_URL = "http://requestb.in"
     FLASK_SESSION_SECRET_KEY = os.environ.get("SESSION_SECRET_KEY", FLASK_SESSION_SECRET_KEY)
     BUGSNAG_KEY = os.environ.get("BUGSNAG_KEY", BUGSNAG_KEY)
     IGNORE_HEADERS = """
@@ -45,7 +45,6 @@ X-Forwarded-Port
 
 else:
     DEBUG = True
-    ROOT_URL = "http://localhost:4000"
     FLASK_SESSION_SECRET_KEY = os.environ.get("SESSION_SECRET_KEY", "N1BKhJLnBqLpexOZdklsfDKFJDKFadsfs9a3r324YB7B73AglRmrHMDQ9RhXz35")
     BUGSNAG_KEY = ""
     IGNORE_HEADERS = []
