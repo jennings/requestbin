@@ -18,8 +18,7 @@ WORKDIR /opt/requestbin
 # want all dependencies first so that if it's just a code change, don't have to
 # rebuild as much of the container
 ADD     requirements.txt .
-RUN     pip install -r requirements.txt \
-        && rm -rf ~/.pip/cache
+RUN     pip install --no-cache-dir -r requirements.txt
 
 # the code
 ADD     requestbin  /opt/requestbin/requestbin/
