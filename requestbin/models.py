@@ -120,10 +120,7 @@ class Request(object):
     @staticmethod
     def load(data):
         r = Request()
-        try:
-            r.__dict__ = msgpack.loads(data, encoding="utf-8")
-        except (UnicodeDecodeError):
-            r.__dict__ = msgpack.loads(data, encoding="ISO-8859-1")
+        r.__dict__ = msgpack.loads(data)
 
         return r
 
