@@ -1,5 +1,4 @@
 blinker==1.4
-bugsnag==3.6.0
 click==7.1.1
 feedparser==5.2.1
 Flask==1.1.2
