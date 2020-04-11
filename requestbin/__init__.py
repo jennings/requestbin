@@ -39,8 +39,7 @@ app = Flask(__name__)
 if os.environ.get('ENABLE_CORS', config.ENABLE_CORS):
     cors = CORS(app, resources={r"*": {"origins": os.environ.get('CORS_ORIGINS', config.CORS_ORIGINS)}})
 
-from werkzeug.contrib.fixers import ProxyFix
-app.wsgi_app = WSGIRawBody(ProxyFix(app.wsgi_app))
+app.wsgi_app = WSGIRawBody(app.wsgi_app)
 
 app.debug = config.DEBUG
 app.secret_key = config.FLASK_SESSION_SECRET_KEY
