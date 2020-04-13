@@ -1,14 +1,48 @@
-# We have discontinued the publicly hosted version of RequestBin due to ongoing abuse that made it very difficult to keep the site up reliably. Please see instructions below for setting up your own self-hosted instance.
+# RequestBin
+
+Accepts HTTP requests and displays what was received to you.
 
 Originally Created by [Jeff Lindsay](http://progrium.com)
 
-License
--------
+# License
+
 MIT
 
 
-Looking to self-host?
-=====================
+# Hosting
+
+## Docker
+
+There's a [Docker image](https://hub.docker.com/r/jennings/requestbin/) you can
+use. The service in the container listens on port 8000:
+
+```bash
+cp .env.sample /path/to/environment_variables.txt
+nano /path/to/environment_variables.txt
+
+# Create and start the container
+docker container run -d --name requestbin                           \
+                     -p 8000:8000                                   \
+                     --env-file /path/to/environment_variables.txt  \
+                     --restart unless-stopped                       \
+                     jennings/requestbin
+```
+
+If you want to store data in Redis instead of in memory, provided the REDIS_URL
+environment variable:
+
+```
+Simple:
+    redis://server.example.com
+
+Full syntax:
+    redis://unused:secret@redis-server.example.com:6379#0
+    Server:     redis-server.example.com:6379
+    Password:   secret
+    Database:   0
+```
+
+## Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
@@ -35,22 +69,6 @@ Now just deploy via git:
 
 It will push to Heroku and give you a URL that your own private RequestBin will be running.
 
-
-## Deploy your own instance using Docker
-
-On the server/machine you want to host this, you'll first need a machine with
-docker and docker-compose installed, then grab the RequestBin source using git:
-
-`$ git clone git://github.com/Runscope/requestbin.git`
-
-Go into the project directory and then build and start the containers
-
-```
-$ sudo docker-compose build
-$ sudo docker-compose up -d
-```
-
-Your own private RequestBin will be running on this server.
 
 
 Contributors
