@@ -1,6 +1,7 @@
 # RequestBin
 
-Accepts HTTP requests and displays what was received to you.
+Accepts HTTP requests and displays what was received. Useful for testing
+webhooks or other requests made by an application.
 
 Originally Created by [Jeff Lindsay](http://progrium.com)
 
