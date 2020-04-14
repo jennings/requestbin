@@ -19,7 +19,7 @@ if REDIS_URL is not None:
     REDIS_HOST = _url_parts.hostname
     REDIS_PORT = _url_parts.port
     REDIS_PASSWORD = _url_parts.password
-    REDIS_DB = _url_parts.fragment
+    REDIS_DB = int(_url_parts.path[1:]) if len(_url_parts.path) > 1 else 0
     REDIS_PREFIX = "requestbin"
 
 REVERSE_PROXY = os.environ.get('REVERSE_PROXY', None)

@@ -29,19 +29,10 @@ docker container run -d --name requestbin                           \
                      jennings/requestbin
 ```
 
-If you want to store data in Redis instead of in memory, provided the REDIS_URL
-environment variable:
-
-```
-Simple:
-    redis://server.example.com
-
-Full syntax:
-    redis://unused:secret@redis-server.example.com:6379#0
-    Server:     redis-server.example.com:6379
-    Password:   secret
-    Database:   0
-```
+If you want to store data in Redis instead of in memory, set the REDIS_URL
+environment variable, using the syntax
+`redis://h:<password>@<hostname>:<port>/<db>`. For example, to use db3 with no
+password: `redis://redis.example.com/3`
 
 ## Heroku
 
