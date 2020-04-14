@@ -9,6 +9,10 @@
     "REALM": {
       "description": "Set to \"prod\" to store data in Redis",
       "value": "prod"
+    },
+    "SECRET_KEY": {
+      "description": "Secret key for encrypting session data",
+      "generator": "secret"
     }
   },
   "addons": [

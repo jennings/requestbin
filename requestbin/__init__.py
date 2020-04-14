@@ -46,7 +46,7 @@ else:
     app.wsgi_app = WSGIRawBody(app.wsgi_app)
 
 app.debug = config.DEBUG
-app.secret_key = config.FLASK_SESSION_SECRET_KEY
+app.secret_key = config.SECRET_KEY
 app.root_path = os.path.abspath(os.path.dirname(__file__))
 
 from requestbin.filters import *
