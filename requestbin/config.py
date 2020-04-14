@@ -28,7 +28,7 @@ REALM = os.environ.get('REALM', 'local')
 
 if REALM == 'prod':
     DEBUG = False
-    FLASK_SESSION_SECRET_KEY = os.environ.get("SESSION_SECRET_KEY", FLASK_SESSION_SECRET_KEY)
+    FLASK_SESSION_SECRET_KEY = os.environ.get("SESSION_SECRET_KEY")
     IGNORE_HEADERS = """
 X-Varnish
 X-Forwarded-For
