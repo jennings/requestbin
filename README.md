@@ -45,14 +45,15 @@ Full syntax:
 
 ## Heroku
 
+### Via deploy button
+
+Click this and follow the instructions:
+
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-## Deploy your own instance using Heroku
-Create a Heroku account if you haven't, then grab the RequestBin source using git:
+### Via manual labor
 
-`$ git clone git://github.com/Runscope/requestbin.git`
-
-From the project directory, create a Heroku application:
+Clone this repository. From the project directory, create a Heroku application:
 
 `$ heroku create`
 
