@@ -1,12 +1,5 @@
-**/**/*.pyc
-*.egg-info
-**/*.pyc
-serviced.log
-
-codekit-config.json
-
-# virtualenv
-venv/
+__pycache__/
+*.pyc
 
 # Mac Files
 **/.DS_Store
