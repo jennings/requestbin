@@ -30,6 +30,7 @@ redis = "^4.3.4"
 six = "^1.16.0"
 webob = "^1.8.7"
 werkzeug = "^2.2.2"
+azure-data-tables = "^12.4.1"
 
 
 [build-system]

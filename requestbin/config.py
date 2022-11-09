@@ -11,8 +11,9 @@ MAX_RAW_SIZE = int(os.environ.get('MAX_RAW_SIZE', 1024*10))
 MAX_REQUESTS = 20
 CLEANUP_INTERVAL = 3600
 
-STORAGE_BACKEND = "requestbin.storage.memory.MemoryStorage"
+
 REDIS_URL = os.environ.get("REDIS_URL")
+STORAGE_ENDPOINT = os.environ.get("STORAGE_ENDPOINT")
 if REDIS_URL is not None:
     STORAGE_BACKEND = "requestbin.storage.redis.RedisStorage"
     _url_parts = urlparse(REDIS_URL)
@@ -21,6 +22,11 @@ if REDIS_URL is not None:
     REDIS_PASSWORD = _url_parts.password
     REDIS_DB = int(_url_parts.path[1:]) if len(_url_parts.path) > 1 else 0
     REDIS_PREFIX = "requestbin"
+elif STORAGE_ENDPOINT is not None:
+    STORAGE_BACKEND = "requestbin.storage.azuretables.AzureTableStorage"
+else:
+    STORAGE_BACKEND = "requestbin.storage.memory.MemoryStorage"
+
 
 REVERSE_PROXY = os.environ.get('REVERSE_PROXY', None)
 

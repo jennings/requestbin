@@ -1,0 +1,18 @@
+TS = unix timestamp ms
+
+PK          RK              HEADERS     BODY    EXPIRES
+bin:100000  self                                TS
+bin:100000  request:TS1     {...}       {...}
+bin:100000  request:TS2     {...}       {...}
+
+bin:100001  self                                TS
+bin:100001  request:TS1     {...}       {...}
+bin:100001  request:TS2     {...}       {...}
+bin:100001  request:TS3     {...}       {...}
+
+bin:100002  request:TS1     {...}       {...}
+
+PK          RK              BIN_NAME
+expires     time:TS         bin:100000
+expires     time:TS         bin:100001
+expires     time:TS         bin:100002
