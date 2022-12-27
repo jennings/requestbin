@@ -57,14 +57,3 @@ def request_(bin, name):
             return _response(req.to_dict())
 
     return _response({'error': "Request not found"}, 404)
-
-
-@app.endpoint('api.stats')
-def stats():
-    stats = {
-        'bin_count': db.count_bins(),
-        'request_count': db.count_requests(),
-        'avg_req_size_kb': db.avg_req_size(), }
-    resp = make_response(json.dumps(stats), 200)
-    resp.headers['Content-Type'] = 'application/json'
-    return resp
