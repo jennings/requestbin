@@ -11,8 +11,8 @@ MAX_RAW_SIZE = int(os.environ.get('MAX_RAW_SIZE', 1024*10))
 MAX_REQUESTS = 20
 CLEANUP_INTERVAL = 3600
 
-STORAGE_BACKEND = "requestbin.storage.memory.MemoryStorage"
 REDIS_URL = os.environ.get("REDIS_URL")
+AZURE_BLOB_STORAGE_URL = os.environ.get("AZURE_BLOB_STORAGE_URL")
 if REDIS_URL is not None:
     STORAGE_BACKEND = "requestbin.storage.redis.RedisStorage"
     _url_parts = urlparse(REDIS_URL)
@@ -21,6 +21,12 @@ if REDIS_URL is not None:
     REDIS_PASSWORD = _url_parts.password
     REDIS_DB = int(_url_parts.path[1:]) if len(_url_parts.path) > 1 else 0
     REDIS_PREFIX = "requestbin"
+elif AZURE_BLOB_STORAGE_URL is not None:
+    STORAGE_BACKEND = "requestbin.storage.azure.AzureBlobStorage"
+    AZURE_BLOB_CONTAINER_NAME = os.environ.get("AZURE_BLOB_CONTAINER_NAME", "requestbin")
+    AZURE_BLOB_PREFIX = os.environ.get("AZURE_BLOB_PREFIX", "")
+else:
+    STORAGE_BACKEND = "requestbin.storage.memory.MemoryStorage"
 
 REVERSE_PROXY = os.environ.get('REVERSE_PROXY', None)
 

@@ -9,6 +9,71 @@ Originally Created by [Jeff Lindsay](http://progrium.com)
 
 MIT
 
+# Configuration
+
+Configuration is set via environment variables.
+
+The only value that must be set in production is `SECRET_KEY`. This is the key
+used by Flask to sign session data. Not setting this allows sessions to be
+forged and the "private" flag on a bin will not be safe.
+
+| Environment variable | Description                                                               | Default      |
+| -------------------- | ------------------------------------------------------------------------- | ------------ |
+| `SECRET_KEY`         | Signing key used by Flask to sign session cookies.                        | (see source) |
+| `MAX_RAW_SIZE`       | Maximum incoming request size to save. Larger requests will be truncated. | 10240        |
+
+In addition, mutliple storage backends are supported.
+
+## Redis backend
+
+If the environment variable `REDIS_URL` is set, the Redis backend is used.
+
+| Environment variable | Description                                                | Default         |
+| -------------------- | ---------------------------------------------------------- | --------------- |
+| `REDIS_URL`          | Redis connection string `redis://127.0.0.1:6379`           | N/A             |
+| `BIN_TTL`            | Number of seconds that bins will be kept with no activity. | 172800 (2 days) |
+
+## Azure Blob Storage backend
+
+If the environment variable `AZURE_BLOB_STORAGE_URL` is set, the Azure Blob Storage backend is used.
+
+| Environment variable        | Description                                                                 | Default      |
+| --------------------------- | --------------------------------------------------------------------------- | ------------ |
+| `AZURE_BLOB_STORAGE_URL`    | Storage account URL, like `https://<accountname>.blob.core.windows.net`     | N/A          |
+| `AZURE_BLOB_CONTAINER_NAME` | Blob container to use.                                                      | "requestbin" |
+| `AZURE_BLOB_PREFIX`         | Prefix to prepend to blob names. Include a trailing slash: `"my/requests/"` | No prefix    |
+
+Azure Blob storage does not support automatically expiring blobs, so you should
+configure a [lifecycle policy][lifecycle-management] to delete old blobs:
+
+[lifecycle-management]: https://learn.microsoft.com/en-us/azure/storage/blobs/lifecycle-management-overview
+
+```json
+{
+  "rules": [
+    {
+      "name": "DeleteOldBins",
+      "enabled": true,
+      "type": "Lifecycle",
+      "definition": {
+        "filters": {
+          "blobTypes": ["blockBlob"],
+          "prefixMatch": ["requestbin/bins/"]
+        },
+        "actions": {
+          "baseBlob": {
+            "delete": { "daysAfterModificationGreaterThan": 2 }
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+## Memory backend
+
+If no other backend is configured, bins will be stored in memory and lost when the process stops.
 
 # Hosting
 
@@ -62,9 +127,7 @@ Now just deploy via git:
 
 It will push to Heroku and give you a URL that your own private RequestBin will be running.
 
+## Contributors
 
-
-Contributors
-------------
- * Barry Carlyon <barry@barrycarlyon.co.uk>
- * Jeff Lindsay <progrium@gmail.com>
+- Barry Carlyon <barry@barrycarlyon.co.uk>
+- Jeff Lindsay <progrium@gmail.com>
