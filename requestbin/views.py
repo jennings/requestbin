@@ -1,5 +1,5 @@
 import urllib
-from flask import session, redirect, url_for, escape, request, render_template, make_response
+from flask import session, redirect, url_for, request, render_template, make_response
 
 from requestbin import app, db
 

@@ -1,3 +1,5 @@
+DOCKER_CLI := docker
+
 .PHONY: all
 all: run
 
@@ -5,6 +7,6 @@ all: run
 run:
 	uv run gunicorn requestbin:app
 
-.PHONY: docker
-docker:
-	docker build -t requestbin .
+.PHONY: build
+build:
+	$(DOCKER_CLI) build -t requestbin .
