@@ -1,39 +1,19 @@
-[tool.poetry]
+[project]
 name = "requestbin"
 version = "0.1.0"
-description = ""
-authors = ["Stephen Jennings <stephen.g.jennings@gmail.com>"]
-license = "MIT"
+description = "Add your description here"
 readme = "README.md"
-
-[tool.poetry.scripts]
-dev = "web:run"
-
-[tool.poetry.dependencies]
-python = "^3.9"
-blinker = "^1.5"
-click = "^8.1.3"
-feedparser = "^6.0.10"
-flask = "^2.2.2"
-flask-cors = "^3.0.10"
-gevent = "^22.10.1"
-greenlet = "^1.1.3.post0"
-gunicorn = "^20.1.0"
-itsdangerous = "^2.1.2"
-jinja2 = "^3.1.2"
-markupsafe = "^2.1.1"
-msgpack = "^1.0.4"
-nose = "^1.3.7"
-proxytypes = "^0.10.0"
-python-dateutil = "^2.8.2"
-redis = "^4.3.4"
-six = "^1.16.0"
-webob = "^1.8.7"
-werkzeug = "^2.2.2"
-azure-identity = "^1.12.0"
-azure-storage-blob = "^12.14.1"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.13"
+dependencies = [
+    "feedparser>=6.0.10",
+    "flask>=2.2.2,<3",
+    "flask-cors>=3.0.10",
+    "gevent>=22.10.1",
+    "gunicorn>=20.1.0",
+    "msgpack>=1.0.4",
+    "python-dateutil>=2.8.2",
+    "redis>=4.3.4",
+    "werkzeug>=2.2.2",
+    "azure-identity>=1.12.0",
+    "azure-storage-blob>=12.14.1",
+]

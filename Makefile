@@ -3,7 +3,7 @@ all: run
 
 .PHONY: run
 run:
-	gunicorn requestbin:app
+	uv run gunicorn requestbin:app
 
 .PHONY: docker
 docker:
