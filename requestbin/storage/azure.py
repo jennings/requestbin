@@ -3,6 +3,7 @@ from ..models import Bin
 from requestbin import config
 from azure.identity import DefaultAzureCredential
 from azure.storage.blob import BlobServiceClient
+from azure.core.exceptions import ResourceNotFoundError
 
 class AzureBlobStorage():
     def __init__(self, bin_ttl):
@@ -39,11 +40,20 @@ class AzureBlobStorage():
 
     def lookup_bin(self, name):
         blob_name = self._blob_name(name)
-        blob = self.client.download_blob(blob_name)
-        serialized_bin = blob.readall()
+        try:
+            blob = self.client.download_blob(blob_name)
+            serialized_bin = blob.readall()
+        except ResourceNotFoundError:
+            # Blob was deleted (e.g., by lifecycle management)
+            raise KeyError("Bin not found")
+        
         try:
             bin = Bin.load(serialized_bin)
             return bin
-        except TypeError:
+        except (TypeError, ValueError, Exception):
+            # Handle various types of corrupted data:
+            # - TypeError: None/wrong type passed to msgpack.loads
+            # - ValueError: incomplete msgpack data
+            # - Other msgpack exceptions (ExtraData, etc.)
             self.client.delete_blob(blob_name) # clear bad data
             raise KeyError("Bin not found")
