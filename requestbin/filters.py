@@ -112,7 +112,7 @@ def to_qs(params_dict):
     
 def short_date(input):
     dt = None
-    if isinstance(input, (str, unicode)):
+    if isinstance(input, str):
         dt = parse(input)
     elif isinstance(input, (int, float, complex)):
         dt = datetime.datetime.utcfromtimestamp(float(input))

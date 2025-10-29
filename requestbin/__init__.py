@@ -1,10 +1,9 @@
-import requestbin.config
+import requestbin.filters as filters
+import requestbin.config as config
 import os
 from io import BytesIO
-
 from flask import Flask
 from flask_cors import CORS
-
 
 class WSGIRawBody(object):
     def __init__(self, application):
@@ -49,14 +48,13 @@ app.debug = config.DEBUG
 app.secret_key = config.SECRET_KEY
 app.root_path = os.path.abspath(os.path.dirname(__file__))
 
-from requestbin.filters import *
-app.jinja_env.filters['status_class'] = status_class
-app.jinja_env.filters['friendly_time'] = friendly_time
-app.jinja_env.filters['friendly_size'] = friendly_size
-app.jinja_env.filters['to_qs'] = to_qs
-app.jinja_env.filters['approximate_time'] = approximate_time
-app.jinja_env.filters['exact_time'] = exact_time
-app.jinja_env.filters['short_date'] = short_date
+app.jinja_env.filters['status_class'] = filters.status_class
+app.jinja_env.filters['friendly_time'] = filters.friendly_time
+app.jinja_env.filters['friendly_size'] = filters.friendly_size
+app.jinja_env.filters['to_qs'] = filters.to_qs
+app.jinja_env.filters['approximate_time'] = filters.approximate_time
+app.jinja_env.filters['exact_time'] = filters.exact_time
+app.jinja_env.filters['short_date'] = filters.short_date
 
 app.add_url_rule('/', 'views.home')
 app.add_url_rule('/<path:name>', 'views.bin', methods=['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS', 'HEAD', 'PATCH', 'TRACE'])
@@ -70,5 +68,3 @@ app.add_url_rule('/api/v1/bins/<bin>/requests/<name>', 'api.request', methods=['
 app.add_url_rule('/api/v1/stats', 'api.stats')
 
 # app.add_url_rule('/robots.txt', redirect_to=url_for('static', filename='robots.txt'))
-
-from requestbin import api, views
