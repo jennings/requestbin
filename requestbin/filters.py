@@ -1,9 +1,6 @@
 import datetime
 from dateutil.parser import parse
-import hashlib
-import os
 import time
-import urllib
 
 def approximate_time(ts):
     if not isinstance(ts, (int, float, complex)):

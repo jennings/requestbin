@@ -1,5 +1,4 @@
 import redis
-import time
 
 from ..models import Bin
 

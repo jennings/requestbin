@@ -1,5 +1,4 @@
 import time
-import operator
 import asyncio
 
 from ..models import Bin
@@ -15,7 +14,7 @@ class MemoryStorage():
         self.request_count = 0
 
     def do_start(self):
-        self.cleanup = asyncio.create_task(self._cleanup_loop());
+        self.cleanup = asyncio.create_task(self._cleanup_loop())
 
     async def _cleanup_loop(self):
         while True:
